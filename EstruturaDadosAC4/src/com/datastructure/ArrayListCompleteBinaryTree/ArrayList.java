@@ -3,6 +3,8 @@ package com.datastructure.ArrayListCompleteBinaryTree;
 import java.util.Iterator;
 
 import com.datastructure.interfaces.IndexList;
+import com.datastructure.iterators.ListIterator;
+import com.datastructure.node_position_list.PositionList;
 
 public class ArrayList<T> implements IndexList<T> {
 
@@ -68,17 +70,17 @@ public class ArrayList<T> implements IndexList<T> {
 	}
 
 	public String toString() {
-		String toReturn = "(";
+		String toReturn = "[";
 		if (size() == 0)
-			return "()";
+			return "[]";
 		for (int i = 0; i < size(); i++)
 			toReturn += A[i].toString() + ", ";
-		return toReturn.substring(0, toReturn.length() - 2) + ")";
+		return toReturn.substring(0, toReturn.length() - 2) + "]";
 	}
 
+	@SuppressWarnings("unchecked")
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ListIterator<T>((PositionList<T>) this);
 	}
 
 }

@@ -19,8 +19,8 @@ public class ArrayListCompleteBinaryTree<T> implements CompleteBinaryTree<T> {
 
 	protected ArrayList<BTPos<T>> T; // Lista indexada dos posições da árvore
 
-	//Classe aninhada para um indice para um nodo de árvore binária
-	//completa baseado em lista.
+	// Classe aninhada para um indice para um nodo de árvore binária
+	// completa baseado em lista.
 	protected static class BTPos<E> implements Position<E> {
 
 		E element; // elemento armazenado nesta posição
@@ -45,6 +45,7 @@ public class ArrayListCompleteBinaryTree<T> implements CompleteBinaryTree<T> {
 			element = elt;
 			return temp;
 		}
+
 		public String toString() {
 			return ("[" + element + "," + index + "]");
 		}
@@ -55,46 +56,46 @@ public class ArrayListCompleteBinaryTree<T> implements CompleteBinaryTree<T> {
 		T.add(0, null); // a localização em rank 0 é considerada vazia
 	}
 
-	//Retorna o número de nodos da árvore binária
+	// Retorna o número de nodos da árvore binária
 	public int size() {
 		return T.size() - 1;
 	}
 
-	//Retorna se a árvore está vazia
+	// Retorna se a árvore está vazia
 	public boolean isEmpty() {
 		return (size() == 0);
 	}
 
-	//Retorna se v é um nodo interno
+	// Retorna se v é um nodo interno
 	public boolean isInternal(Position<T> v) throws InvalidPositionException {
 		return hasLeft(v); // Se v tiver um filho esquerdo, ele será interno
 	}
 
-	//Retorna se v é um nodo externo
+	// Retorna se v é um nodo externo
 	public boolean isExternal(Position<T> v) throws InvalidPositionException {
 		return !isInternal(v);
 	}
 
-	//Determina se uma dada posição é um nodo válido
+	// Determina se uma dada posição é um nodo válido
 	protected BTPos<T> checkPosition(Position<T> v) throws InvalidPositionException {
 		if (v == null || !(v instanceof BTPos))
 			throw new InvalidPositionException("Position is invalid");
 		return (BTPos<T>) v;
 	}
 
-	//Retorna se v é raiz
+	// Retorna se v é raiz
 	public boolean isRoot(Position<T> v) throws InvalidPositionException {
 		BTPos<T> vv = checkPosition(v);
 		return vv.index() == 1;
 	}
 
-	//Retorna se v tem um filho esquerdo
+	// Retorna se v tem um filho esquerdo
 	public boolean hasLeft(Position<T> v) throws InvalidPositionException {
 		BTPos<T> vv = checkPosition(v);
 		return 2 * vv.index() <= size();
 	}
 
-	//Retorna se v tem um filha direito
+	// Retorna se v tem um filha direito
 	public boolean hasRight(Position<T> v) throws InvalidPositionException {
 		BTPos<T> vv = checkPosition(v);
 		return 2 * vv.index() + 1 <= size();
@@ -107,7 +108,7 @@ public class ArrayListCompleteBinaryTree<T> implements CompleteBinaryTree<T> {
 		return T.get(1);
 	}
 
-	//Retorna o filho esquerdo de v
+	// Retorna o filho esquerdo de v
 	public Position<T> left(Position<T> v) throws InvalidPositionException, BoundaryViolationException {
 		if (!hasLeft(v))
 			throw new BoundaryViolationException("No left child");
@@ -115,7 +116,7 @@ public class ArrayListCompleteBinaryTree<T> implements CompleteBinaryTree<T> {
 		return T.get(2 * vv.index());
 	}
 
-	//Retorna o filho direito de v
+	// Retorna o filho direito de v
 	public Position<T> right(Position<T> v) throws InvalidPositionException {
 		if (!hasRight(v))
 			throw new BoundaryViolationException("No right child");
@@ -123,7 +124,7 @@ public class ArrayListCompleteBinaryTree<T> implements CompleteBinaryTree<T> {
 		return T.get(2 * vv.index() + 1);
 	}
 
-	//Retorna o pai de v
+	// Retorna o pai de v
 	public Position<T> parent(Position<T> v) throws InvalidPositionException, BoundaryViolationException {
 		if (isRoot(v))
 			throw new BoundaryViolationException("No parent");
@@ -131,7 +132,7 @@ public class ArrayListCompleteBinaryTree<T> implements CompleteBinaryTree<T> {
 		return T.get(vv.index() / 2);
 	}
 
-	//Retorna a coleção iterável de filhos de v
+	// Retorna a coleção iterável de filhos de v
 	public Iterable<Position<T>> children(Position<T> v) throws InvalidPositionException {
 		PositionList<Position<T>> children = new NodePositionList<Position<T>>();
 		if (hasLeft(v))
@@ -141,23 +142,27 @@ public class ArrayListCompleteBinaryTree<T> implements CompleteBinaryTree<T> {
 		return children;
 	}
 
-	//Retorna a coleção iterável de todos os nodos da árvore
+	// Retorna a coleção iterável de todos os nodos da árvore
+
+	@SuppressWarnings("unchecked")
 	public Iterable<Position<T>> positions() {
 		ArrayList<Position<T>> P = new ArrayList<Position<T>>();
 		Iterator<BTPos<T>> iter = T.iterator();
 		iter.next(); // Pula a primeira posição
+		int i = 0;
 		while (iter.hasNext())
-			P.add(iter.next());
-		return P;
+			P.add(i, iter.next());
+			i++;
+		return (Iterable<Position<T>>) P;
 	}
 
-	//Troca o elemento de v
+	// Troca o elemento de v
 	public T replace(Position<T> v, T o) throws InvalidPositionException {
 		BTPos<T> vv = checkPosition(v);
 		return vv.setElement(o);
 	}
 
-	//Adiciona um elemento exatamente após o último nodo
+	// Adiciona um elemento exatamente após o último nodo
 	public Position<T> add(T e) {
 		int i = size() + 1;
 		BTPos<T> p = new BTPos<T>(e, i);
@@ -165,15 +170,15 @@ public class ArrayListCompleteBinaryTree<T> implements CompleteBinaryTree<T> {
 		return p;
 	}
 
-	//Remove e retorna o elemento no do último nodo
+	// Remove e retorna o elemento no do último nodo
 	public T remove() throws EmptyTreeException {
 		if (isEmpty())
 			throw new EmptyTreeException("Tree is empty");
 		return T.remove(size()).element();
 	}
 
-	//Métodos adicionais
-	//Retorna o irmão de v
+	// Métodos adicionais
+	// Retorna o irmão de v
 	public Position<T> sibling(Position<T> v) throws InvalidPositionException, BoundaryViolationException {
 		try {
 			Position<T> p = parent(v);
@@ -187,7 +192,7 @@ public class ArrayListCompleteBinaryTree<T> implements CompleteBinaryTree<T> {
 		}
 	}
 
-	//Troca os elementos de dois nodos
+	// Troca os elementos de dois nodos
 	public void swapElements(Position<T> v, Position<T> w) throws InvalidPositionException {
 		BTPos<T> vv = checkPosition(v);
 		BTPos<T> ww = checkPosition(w);
@@ -196,18 +201,19 @@ public class ArrayListCompleteBinaryTree<T> implements CompleteBinaryTree<T> {
 		ww.setElement(temp);
 	}
 
-	//Retorna um iterator dos elementos armazenados em todos os nodos da árvore
+	// Retorna um iterator dos elementos armazenados em todos os nodos da árvore
 	public Iterator<T> iterator() {
 		ArrayList<T> list = new ArrayList<T>();
 		Iterator<BTPos<T>> iter = T.iterator();
 		iter.next(); // skip the first element
+		int i = 0;
 		while (iter.hasNext())
-			list.add(iter.next().element());
+			list.add(i, iter.next().element());
+			i++;
 		return list.iterator();
 	}
 
-	//Retorna uma string representando esta árvore binária completa
-
+	// Retorna uma string representando esta árvore binária completa
 	public String toString() {
 		return T.toString();
 	}

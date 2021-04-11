@@ -6,6 +6,8 @@ import com.datastructure.exceptions.BoundaryViolationException;
 import com.datastructure.exceptions.EmptyListException;
 import com.datastructure.exceptions.InvalidPositionException;
 
+import com.datastructure.iterators.ElementIterator;
+
 public class NodePositionList<T> implements PositionList<T> {
 
 	protected int numElts;
