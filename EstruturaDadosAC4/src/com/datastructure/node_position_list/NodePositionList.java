@@ -150,7 +150,7 @@ public class NodePositionList<T> implements PositionList<T> {
 			s += ", " + i;
 		}
 		s = (s.length() == 0 ? s : s.substring(2));
-		return "(" + s + ")";
+		return "[" + s + "]";
 	}
 
 	public Iterator<T> iterator() {
