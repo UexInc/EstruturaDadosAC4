@@ -1,5 +1,6 @@
 package com.datastructure.ArrayListCompleteBinaryTree;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.datastructure.exceptions.BoundaryViolationException;
@@ -143,16 +144,12 @@ public class ArrayListCompleteBinaryTree<T> implements CompleteBinaryTree<T> {
 	}
 
 	// Retorna a coleção iterável de todos os nodos da árvore
-
-	@SuppressWarnings("unchecked")
 	public Iterable<Position<T>> positions() {
 		ArrayList<Position<T>> P = new ArrayList<Position<T>>();
 		Iterator<BTPos<T>> iter = T.iterator();
 		iter.next(); // Pula a primeira posição
-		int i = 0;
 		while (iter.hasNext())
-			P.add(i, iter.next());
-			i++;
+			P.add(iter.next());
 		return (Iterable<Position<T>>) P;
 	}
 
@@ -206,10 +203,8 @@ public class ArrayListCompleteBinaryTree<T> implements CompleteBinaryTree<T> {
 		ArrayList<T> list = new ArrayList<T>();
 		Iterator<BTPos<T>> iter = T.iterator();
 		iter.next(); // skip the first element
-		int i = 0;
 		while (iter.hasNext())
-			list.add(i, iter.next().element());
-			i++;
+			list.add(iter.next().element());
 		return list.iterator();
 	}
 

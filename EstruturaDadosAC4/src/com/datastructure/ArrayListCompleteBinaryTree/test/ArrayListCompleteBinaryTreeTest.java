@@ -44,7 +44,6 @@ class ArrayListCompleteBinaryTreeTest {
 		T.add(12);
 		T.add(11);
 		T.add(8);
-		// System.out.println(T.iterator());
 	}
 }
 
