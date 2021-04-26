@@ -41,7 +41,7 @@ class HeapPriorityQueueTest {
 				P.toString());
 	}
 	
-	// 1. D)
+	// 1. D) Um método que ordene (9, 1, 3, 6, 2, 7, 8) usando TAD Fila de Prioridade usando Heap.
 	@Test
 	void test_collection() {
 		HeapPriorityQueue<Integer, Integer> P = new HeapPriorityQueue<Integer, Integer>();
