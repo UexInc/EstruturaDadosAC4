@@ -71,5 +71,25 @@ class SortedListPriorityQueueTest {
 		assertEquals("(Pacote[nome=Bubbaloo, numero=17],null)", saida.toString());
 		assertEquals("[(Pacote[nome=Fini Morango, numero=15],null), (Pacote[nome=Bubbaloo, numero=17],null)]", P.toString());
 	}
+	
+	// 2. Teste
+	@Test
+	void test2() {
+		SortedListPriorityQueue<Integer, Character> P = new SortedListPriorityQueue<Integer, Character>();
+		assertNotNull(P.insert(5, 'A'));
+		assertNotNull(P.insert(4, 'B'));
+		assertNotNull(P.insert(7, 'I'));
+		assertNotNull(P.insert(1, 'D'));
+		assertEquals("(1,D)", P.removeMin().toString());
+		assertNotNull(P.insert(3, 'J'));
+		assertNotNull(P.insert(6, 'L'));
+		assertEquals("(3,J)", P.removeMin().toString());
+		assertEquals("(4,B)", P.removeMin().toString());
+		assertNotNull(P.insert(8, 'G'));
+		assertEquals("(5,A)", P.removeMin().toString());
+		assertNotNull(P.insert(2, 'H'));
+		assertEquals("(2,H)", P.removeMin().toString());
+		assertEquals("(6,L)", P.removeMin().toString());
+	}
 
 }
