@@ -8,34 +8,53 @@ import com.datastructure.HeapPriorityQueue.HeapPriorityQueue;
 
 class HeapPriorityQueueTest {
 
+	// 1. c) TAD Fila de Prioridade usando Heap (slides de 75 a 79)
 	@Test
 	void test() {
 		HeapPriorityQueue<Integer, String> P = new HeapPriorityQueue<Integer, String>();
-		P.insert(4, "C");
-		P.insert(5, "A");
-		P.insert(6, "Z");
-		P.insert(15, "K");
-		P.insert(9, "F");
-		P.insert(7, "Q");
-		P.insert(20, "B");
-		P.insert(16, "X");
-		P.insert(25, "J");
-		P.insert(14, "E");
-		P.insert(12, "H");
-		P.insert(11, "S");
-		P.insert(8, "W");
-		assertEquals("[null, [(4,C),1], [(5,A),2], [(6,Z),3], [(15,K),4], [(9,F),5], "
-				+ "[(7,Q),6], [(20,B),7], [(16,X),8], [(25,J),9], [(14,E),10], [(12,H),11], "
-				+ "[(11,S),12], [(8,W),13]]", P.toString());
-		P.insert(2, "T");
-		assertEquals("[null, [(2,T),1], [(5,A),2], [(4,C),3], [(15,K),4], [(9,F),5], "
-				+ "[(7,Q),6], [(6,Z),7], [(16,X),8], [(25,J),9], [(14,E),10], [(12,H),11], "
-				+ "[(11,S),12], [(8,W),13], [(20,B),14]]", P.toString());
+		assertEquals(true, P.isEmpty());
+		P.insert(1, "Alan Mathison Turing");
+		P.insert(2, "Dennis Ritchie");
+		P.insert(12, "Linus Torvalds");
+		P.insert(3, "Bjarne Stroustrup");
+		P.insert(18, "Tim Berners-Lee");
+		P.insert(9, "Ken Thompson");
+		P.insert(10, "Brian Kernighan");
+		P.insert(7, "Bill Gates");
+		P.insert(25, "John Backus");
+		P.insert(91, "Grace Hooper");
+		assertEquals("[null, [(1,Alan Mathison Turing),1], [(2,Dennis Ritchie),2], [(9,Ken Thompson),3], "
+				+ "[(3,Bjarne Stroustrup),4], [(18,Tim Berners-Lee),5], [(12,Linus Torvalds),6], "
+				+ "[(10,Brian Kernighan),7], [(7,Bill Gates),8], [(25,John Backus),9], "
+				+ "[(91,Grace Hooper),10]]", P.toString());
+		P.insert(69, "Mark Zuckerberg");
+		assertEquals("[null, [(1,Alan Mathison Turing),1], [(2,Dennis Ritchie),2], [(9,Ken Thompson),3], "
+				+ "[(3,Bjarne Stroustrup),4], [(18,Tim Berners-Lee),5], [(12,Linus Torvalds),6], "
+				+ "[(10,Brian Kernighan),7], [(7,Bill Gates),8], [(25,John Backus),9], "
+				+ "[(91,Grace Hooper),10], [(69,Mark Zuckerberg),11]]", P.toString());
 		P.removeMin();
 		assertEquals(
-				"[null, [(4,C),1], [(5,A),2], [(6,Z),3], [(15,K),4], [(9,F),5], [(7,Q),6], [(20,B),7],"
-						+ " [(16,X),8], [(25,J),9], [(14,E),10], [(12,H),11], [(11,S),12], [(8,W),13]]",
+				"[null, [(2,Dennis Ritchie),1], [(3,Bjarne Stroustrup),2], [(9,Ken Thompson),3], "
+				+ "[(7,Bill Gates),4], [(18,Tim Berners-Lee),5], [(12,Linus Torvalds),6], "
+				+ "[(10,Brian Kernighan),7], [(69,Mark Zuckerberg),8], [(25,John Backus),9], "
+				+ "[(91,Grace Hooper),10]]",
 				P.toString());
+	}
+	
+	// 1. D)
+	@Test
+	void test_collection() {
+		HeapPriorityQueue<Integer, Integer> P = new HeapPriorityQueue<Integer, Integer>();
+		assertEquals(true, P.isEmpty());
+		P.insert(9, 9);
+		P.insert(1, 1);
+		P.insert(3, 3);
+		P.insert(6, 6);
+		P.insert(2, 2);
+		P.insert(7, 7);
+		P.insert(8, 8);
+		assertEquals("[null, [(1,1),1], [(2,2),2], [(3,3),3], "
+				+ "[(9,9),4], [(6,6),5], [(7,7),6], [(8,8),7]]", P.toString());
 	}
 
 }

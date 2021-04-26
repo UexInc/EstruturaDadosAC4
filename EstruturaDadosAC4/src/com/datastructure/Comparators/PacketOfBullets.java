@@ -1,6 +1,6 @@
 package com.datastructure.Comparators;
 
-public class PacketOfBullets {
+public class PacketOfBullets implements Comparable<PacketOfBullets> {
 
 	private String nome;
 	private int numeroBalas;
@@ -15,21 +15,13 @@ public class PacketOfBullets {
 		if(this.numeroBalas > packet.numeroBalas) return 1;
 		return 0;
 	}
-
-	public String getNome() {
-		return nome;
+	
+	public String toString() {
+		return "Pacote[nome=" + nome + ", numero=" + numeroBalas + "]";
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	String getNome() { return nome; }
 
-	public int getNumeroBalas() {
-		return numeroBalas;
-	}
-
-	public void setNumeroBalas(int numeroBalas) {
-		this.numeroBalas = numeroBalas;
-	}
+	int getNumeroBalas() { return numeroBalas; }
 
 }

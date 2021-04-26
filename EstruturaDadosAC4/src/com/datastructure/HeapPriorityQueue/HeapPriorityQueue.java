@@ -21,7 +21,7 @@ public class HeapPriorityQueue<K, V> implements PriorityQueue<K, V> {
 
 	protected Comparator<K> comp; // comparator for the keys
 
-	//Classe interna para entradas do heap
+	// Classe interna para entradas do heap
 	protected static class MyEntry<K, V> implements Entry<K, V> {
 
 		protected K key;
@@ -46,44 +46,44 @@ public class HeapPriorityQueue<K, V> implements PriorityQueue<K, V> {
 		}
 	}
 
-	//Cria um heap vazio com comparador padrão
+	// Cria um heap vazio com comparador padrão
 	public HeapPriorityQueue() {
 		heap = new ArrayListCompleteBinaryTree<Entry<K, V>>(); // Usa o ArrayListCompleteBinaryTree
 		comp = new DefaultComparator<K>(); // usa o comparador padrão
 	}
 
-	//Cria um heap vazio com um comparador informado
+	// Cria um heap vazio com um comparador informado
 	public HeapPriorityQueue(Comparator<K> c) {
 		heap = new ArrayListCompleteBinaryTree<Entry<K, V>>();
 		comp = c;
 	}
 
-	//Define o comparador usado para comparar itens no heap
-	//@throws IllegalStateException se a fila de prioridade não estiver vazia
+	// Define o comparador usado para comparar itens no heap
+	// @throws IllegalStateException se a fila de prioridade não estiver vazia
 	public void setComparator(Comparator<K> c) throws IllegalStateException {
 		if (!isEmpty()) // Isto somente é permitido se a fila de prioridade estiver vazia
 			throw new IllegalStateException("Priority queue is not empty");
 		comp = c;
 	}
 
-	//Retorna o tamanho do heap
+	// Retorna o tamanho do heap
 	public int size() {
 		return heap.size();
 	}
 
-	//Retorna se o heap está vazio
+	// Retorna se o heap está vazio
 	public boolean isEmpty() {
 		return heap.size() == 0;
 	}
 
-	//Retorna mas não remove uma entrada com a chave mínima
+	// Retorna mas não remove uma entrada com a chave mínima
 	public Entry<K, V> min() throws EmptyPriorityQueueException {
 		if (isEmpty())
 			throw new EmptyPriorityQueueException("Priority queue is empty");
 		return heap.root().element();
 	}
 
-	//Insere um par chave-valor e retorna uma entrada criada
+	// Insere um par chave-valor e retorna uma entrada criada
 	public Entry<K, V> insert(K k, V x) throws InvalidKeyException {
 		checkKey(k); // pode lançar um InvalidKeyException
 		Entry<K, V> entry = new MyEntry<K, V>(k, x);
@@ -91,7 +91,7 @@ public class HeapPriorityQueue<K, V> implements PriorityQueue<K, V> {
 		return entry;
 	}
 
-	//Remove e retona uma entrada com a chave mínima
+	// Remove e retona uma entrada com a chave mínima
 	public Entry<K, V> removeMin() throws EmptyPriorityQueueException {
 		if (isEmpty())
 			throw new EmptyPriorityQueueException("Priority queue is empty");
@@ -105,7 +105,7 @@ public class HeapPriorityQueue<K, V> implements PriorityQueue<K, V> {
 		return min;
 	}
 
-	//Determina se uma dada chave é inválida
+	// Determina se uma dada chave é inválida
 	protected void checkKey(K key) throws InvalidKeyException {
 		try {
 			comp.compare(key, key);
@@ -114,7 +114,7 @@ public class HeapPriorityQueue<K, V> implements PriorityQueue<K, V> {
 		}
 	}
 
-	//Realiza o up-heap bubbling
+	// Realiza o up-heap bubbling
 	protected void upHeap(Position<Entry<K, V>> v) {
 		Position<Entry<K, V>> u;
 		while (!heap.isRoot(v)) {
@@ -126,7 +126,7 @@ public class HeapPriorityQueue<K, V> implements PriorityQueue<K, V> {
 		}
 	}
 
-	//Realiza o down-heap bubbling
+	// Realiza o down-heap bubbling
 	protected void downHeap(Position<Entry<K, V>> r) {
 		while (heap.isInternal(r)) {
 			Position<Entry<K, V>> s; // a posição do menor filho
@@ -144,14 +144,14 @@ public class HeapPriorityQueue<K, V> implements PriorityQueue<K, V> {
 		}
 	}
 
-	//Troca as entradas de duas posições
+	// Troca as entradas de duas posições
 	protected void swap(Position<Entry<K, V>> x, Position<Entry<K, V>> y) {
 		Entry<K, V> temp = x.element();
 		heap.replace(x, y.element());
 		heap.replace(y, temp);
 	}
 
-	//Visualização textual para propósitos de depuração
+	// Visualização textual para propósitos de depuração
 	public String toString() {
 		return heap.toString();
 	}

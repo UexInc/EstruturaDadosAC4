@@ -4,47 +4,72 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import com.datastructure.Comparators.PacketOfBullets;
 import com.datastructure.SortedListPriorityQueue.SortedListPriorityQueue;
 import com.datastructure.exceptions.EmptyPriorityQueueException;
 import com.datastructure.interfaces.Entry;
 
 class SortedListPriorityQueueTest {
 
+	// 1. a) TAD Fila de Prioridade baseado em lista (slides de 21 a 31)
 	@Test
-	void teste_basico() {
+	void grupo_teste() {
 		SortedListPriorityQueue<Integer, String> P = new SortedListPriorityQueue<Integer, String>();
 		Entry<Integer, String> saida;
-		saida = P.insert(5, "A");
-		assertEquals("(5,A)", saida.toString());
-		assertEquals("[(5,A)]", P.toString());
-		saida = P.insert(9, "C");
-		assertEquals("(9,C)", saida.toString());
-		assertEquals("[(5,A), (9,C)]", P.toString());
-		saida = P.insert(3, "B");
-		assertEquals("(3,B)", saida.toString());
-		assertEquals("[(3,B), (5,A), (9,C)]", P.toString());
-		saida = P.insert(7, "D");
-		assertEquals("(7,D)", saida.toString());
-		assertEquals("[(3,B), (5,A), (7,D), (9,C)]", P.toString());
-		saida = P.min();
-		assertEquals("(3,B)", saida.toString());
-		assertEquals("[(3,B), (5,A), (7,D), (9,C)]", P.toString());
+		
+		saida = P.insert(6, "Willian");
+		assertEquals("(6,Willian)", saida.toString());
+		
+		saida = P.insert(4, "Raphael");
+		assertEquals("[(4,Raphael), (6,Willian)]", P.toString());
+		
+		saida = P.insert(7, "Geisa");
+		assertEquals("(7,Geisa)", saida.toString());
+		
+		assertEquals("(4,Raphael)", P.min().toString());
+		
+		saida = P.insert(9, "Gabriel");
+		assertEquals("[(4,Raphael), (6,Willian), (7,Geisa), (9,Gabriel)]", P.toString());
+		
+		saida = P.insert(10, "Ricardo");
 		saida = P.removeMin();
-		assertEquals("(3,B)", saida.toString());
-		assertEquals("[(5,A), (7,D), (9,C)]", P.toString());
-		assertEquals(3, P.size());
+		assertEquals("(4,Raphael)", saida.toString());
+		
+		assertEquals(false, P.isEmpty());
 		saida = P.removeMin();
-		assertEquals("(5,A)", saida.toString());
-		assertEquals("[(7,D), (9,C)]", P.toString());
-		saida = P.removeMin();
-		assertEquals("(7,D)", saida.toString());
-		assertEquals("[(9,C)]", P.toString());
-		saida = P.removeMin();
-		assertEquals("(9,C)", saida.toString());
-		assertEquals("[]", P.toString());
-		assertThrows(EmptyPriorityQueueException.class, () -> {
-			P.removeMin();
-		});
+		assertEquals("(6,Willian)", saida.toString());
+		
+		assertEquals("(7,Geisa)", P.min().toString());
+		saida = P.insert(8, "Willian");
+		saida = P.insert(6, "Raphael");
+		
+		assertEquals("[(6,Raphael), (7,Geisa), (8,Willian), (9,Gabriel), (10,Ricardo)]", P.toString());
+		assertEquals("(6,Raphael)", P.removeMin().toString());
+		assertEquals("(7,Geisa)", P.removeMin().toString());
+		assertEquals("(8,Willian)", P.removeMin().toString());
+		assertEquals("(9,Gabriel)", P.removeMin().toString());
+		
+		assertEquals("(10,Ricardo)", P.min().toString());
+		assertEquals("(10,Ricardo)", P.removeMin().toString());
+		assertEquals(true, P.isEmpty());
+		assertThrows(EmptyPriorityQueueException.class, () -> { P.removeMin(); });
+	}
+	
+	@Test
+	void compara_pacotes() {
+		SortedListPriorityQueue<PacketOfBullets, PacketOfBullets> P = new SortedListPriorityQueue<PacketOfBullets, PacketOfBullets>();
+		Entry<PacketOfBullets, PacketOfBullets> saida;
+		PacketOfBullets p1;
+		
+		p1 = new PacketOfBullets("Fini Morango", 15);
+		saida = P.insert(p1, null);
+		assertEquals("(Pacote[nome=Fini Morango, numero=15],null)", saida.toString());
+		assertEquals("[(Pacote[nome=Fini Morango, numero=15],null)]", P.toString());
+
+		p1 = new PacketOfBullets("Bubbaloo", 17);
+		saida = P.insert(p1, null);
+		assertEquals("(Pacote[nome=Bubbaloo, numero=17],null)", saida.toString());
+		assertEquals("[(Pacote[nome=Fini Morango, numero=15],null), (Pacote[nome=Bubbaloo, numero=17],null)]", P.toString());
 	}
 
 }
