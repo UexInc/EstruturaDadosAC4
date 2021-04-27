@@ -40,8 +40,9 @@ class SpellCheckerTest {
 		assertEquals("{amazonica}", ordenar(s.spellCheck("zonica")));
 		assertEquals("{america, americano}", ordenar(s.spellCheck("merica")));
 		assertEquals("{limitando}", ordenar(s.spellCheck("limit")));
-		assertEquals("{estende, noroeste, oeste}", ordenar(s.spellCheck("teste")));
-		assertEquals("{fantasias, praias}", ordenar(s.spellCheck("asia")));
+		assertEquals("{estatua, estende, noroeste, oeste}", ordenar(s.spellCheck("teste")));
+		assertEquals("{brasil, brasileiro, fantasias, simbolizado, situada}", ordenar(s.spellCheck("asia")));
+		assertThrows(NullPointerException.class, () -> { ordenar(s.spellCheck("de")); });
 	}
 
 	private Object ordenar(Iterable<String> keySet) {

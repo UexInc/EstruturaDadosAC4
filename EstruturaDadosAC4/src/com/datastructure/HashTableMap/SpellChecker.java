@@ -43,9 +43,7 @@ public class SpellChecker {
 	protected boolean checkSimilar(String word, String comparate) {
 		if (word.contains(comparate) 
 				|| word.equalsIgnoreCase(comparate)
-				|| (word.contains(comparate.subSequence(0, comparate.length() / 2))
-				&& word.contains(comparate.subSequence(comparate.length() / 2, comparate.length())))
-				|| word.contains(comparate)) {
+				|| word.contains(comparate.substring(1, comparate.length() - 1))) {
 			return true;
 		}
 		return false;
@@ -54,7 +52,10 @@ public class SpellChecker {
 	public Iterable<String> spellCheck(String s) {
 		PositionList<String> positions = new NodePositionList<String>();
 		String lower = s.toLowerCase();
-
+			
+		if (lower.length() <= 3) 
+			throw new NullPointerException("String is to small !");
+		
 		if (W.get(s) != null) {
 			positions.addLast(s);
 			return positions;
